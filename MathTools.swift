@@ -129,7 +129,7 @@ final class MathToolsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor(red: 0.055, green: 0.06, blue: 0.11, alpha: 1)
+        title = "Resolver"; navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Estudar", style: .plain, target: self, action: #selector(openStudy)); view.backgroundColor = UIColor(red: 0.055, green: 0.06, blue: 0.11, alpha: 1)
         buildInterface()
     }
 
@@ -227,6 +227,8 @@ final class MathToolsViewController: UIViewController {
         return label
     }
 
+    @objc private func openStudy() { let study = StudyViewController(); let navigation = UINavigationController(rootViewController: study); navigation.modalPresentationStyle = .fullScreen; present(navigation, animated: true) }
+
     @objc private func resolve() {
         view.endEditing(true)
         let text = expressionField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
@@ -252,7 +254,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     func application(_ application: UIApplication, didFinishLaunchingWithOptions options: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
         let window = UIWindow(frame: UIScreen.main.bounds)
-        window.rootViewController = MathToolsViewController()
+        let navigation = UINavigationController(rootViewController: MathToolsViewController()); window.rootViewController = navigation
         window.makeKeyAndVisible()
         self.window = window
         return true
